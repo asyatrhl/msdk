@@ -117,8 +117,8 @@ int main(void)
     load_input(); // Load data input
     // CNN clock: PLL (200 MHz) div 1
     MXC_GCR->pclkdiv = 
-        MXC_GCR->pclkdiv & ~(MXC_F_GCR_PCLKDIV_CNNCLKDIV | MXC_F_GCR_PCLKDIV_CNNCLKSEL))
-        | MXC_S_GCR_PCLKDIV_CNNCLKDIV_DIV1 | MXC_S_GCR_PCLKDIV_CNNCLKSEL_IPLL;
+        (MXC_GCR->pclkdiv & ~(MXC_F_GCR_PCLKDIV_CNNCLKDIV | MXC_F_GCR_PCLKDIV_CNNCLKSEL)) |
+        MXC_S_GCR_PCLKDIV_CNNCLKDIV_DIV4 | MXC_S_GCR_PCLKDIV_CNNCLKSEL_IPLL;
     cnn_start(); // Start CNN processing
 
     while (cnn_time == 0) MXC_LP_EnterSleepMode(); // Wait for CNN
@@ -141,7 +141,6 @@ int main(void)
     cnn_disable(); // Shut down CNN clock, disable peripheral
 
     MXC_GCR->ipll_ctrl &= ~MXC_F_GCR_IPLL_CTRL_EN; // Disable IPLL
-
 
     return 0;
 }
@@ -188,4 +187,3 @@ int main(void)
   Weight memory: 1,686,080 bytes out of 2,396,160 bytes total (70.4%)
   Bias memory:   5,544 bytes out of 8,192 bytes total (67.7%)
 */
-

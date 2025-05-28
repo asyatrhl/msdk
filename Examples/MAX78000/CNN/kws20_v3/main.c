@@ -244,4 +244,3 @@ int main(void)
   Weight memory: 169,472 bytes out of 442,368 bytes total (38.3%)
   Bias memory:   0 bytes out of 2,048 bytes total (0.0%)
 */
-

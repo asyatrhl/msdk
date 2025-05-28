@@ -185,8 +185,8 @@ int main(void)
     load_input(); // Load data input
     // CNN clock: PLL (200 MHz) div 1
     MXC_GCR->pclkdiv =
-        (MXC_GCR->pclkdiv & ~(MXC_F_GCR_PCLKDIV_CNNCLKDIV | MXC_F_GCR_PCLKDIV_CNNCLKSEL))
-        | MXC_S_GCR_PCLKDIV_CNNCLKDIV_DIV1 | MXC_S_GCR_PCLKDIV_CNNCLKSEL_IPLL;
+        (MXC_GCR->pclkdiv & ~(MXC_F_GCR_PCLKDIV_CNNCLKDIV | MXC_F_GCR_PCLKDIV_CNNCLKSEL)) |
+        MXC_S_GCR_PCLKDIV_CNNCLKDIV_DIV1 | MXC_S_GCR_PCLKDIV_CNNCLKSEL_IPLL;
     cnn_start(); // Start CNN processing
 
     while (cnn_time == 0) MXC_LP_EnterSleepMode(); // Wait for CNN
@@ -194,8 +194,8 @@ int main(void)
     // Switch CNN clock to PLL (200 MHz) div 4
 
     MXC_GCR->pclkdiv =
-        (MXC_GCR->pclkdiv & ~(MXC_F_GCR_PCLKDIV_CNNCLKDIV | MXC_F_GCR_PCLKDIV_CNNCLKSEL))
-        | MXC_S_GCR_PCLKDIV_CNNCLKDIV_DIV4 | MXC_S_GCR_PCLKDIV_CNNCLKSEL_IPLL;
+        (MXC_GCR->pclkdiv & ~(MXC_F_GCR_PCLKDIV_CNNCLKDIV | MXC_F_GCR_PCLKDIV_CNNCLKSEL)) |
+        MXC_S_GCR_PCLKDIV_CNNCLKDIV_DIV4 | MXC_S_GCR_PCLKDIV_CNNCLKSEL_IPLL;
     if (check_output() != CNN_OK)
         fail();
     softmax_layer();
@@ -250,4 +250,3 @@ int main(void)
   Weight memory: 378,272 bytes out of 2,396,160 bytes total (15.8%)
   Bias memory:   933 bytes out of 8,192 bytes total (11.4%)
 */
-

@@ -60,7 +60,7 @@ int main(void)
     MXC_GCR->ipll_ctrl |= MXC_F_GCR_IPLL_CTRL_EN; // Enable IPLL
     SystemCoreClockUpdate();
 
-    MXC_FCR->urvbootaddr = (uint32_t) &__FlashStart_; // Set RISC-V boot address
+    MXC_FCR->urvbootaddr = (uint32_t)&__FlashStart_; // Set RISC-V boot address
     MXC_SYS_ClockEnable(MXC_SYS_PERIPH_CLOCK_SMPHR); // Enable Semaphore clock
     MXC_NVIC_SetVector(RISCV_IRQn, WakeISR); // Set wakeup ISR
 
@@ -73,4 +73,3 @@ int main(void)
 
     return 0;
 }
-

@@ -63,7 +63,8 @@ void load_input(void)
 
     for (i = 0; i < 5476; i++) {
         // Remove the following line if there is no risk that the source would overrun the FIFO:
-        while (((*((volatile uint32_t *)0x50000004) & 1)) != 0); // Wait for FIFO 0
+        while (((*((volatile uint32_t *)0x50000004) & 1)) != 0) {}
+        // Wait for FIFO 0
         *((volatile uint32_t *)0x50000008) = *in0++; // Write FIFO 0
     }
 }
@@ -166,4 +167,3 @@ int main(void)
   Weight memory: 335,520 bytes out of 442,368 bytes total (75.8%)
   Bias memory:   816 bytes out of 2,048 bytes total (39.8%)
 */
-
