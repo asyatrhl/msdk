@@ -120,10 +120,10 @@ int main(void)
     cnn_start(); // Start CNN processing
     load_input(); // Load data input via FIFO
 
-    while (cnn_time == 0)
-        MXC_LP_EnterSleepMode(); // Wait for CNN
+    while (cnn_time == 0) MXC_LP_EnterSleepMode(); // Wait for CNN
 
-    if (check_output() != CNN_OK) fail();
+    if (check_output() != CNN_OK)
+        fail();
     cnn_unload((uint32_t *)ml_data);
 
     printf("\n*** PASS ***\n\n");

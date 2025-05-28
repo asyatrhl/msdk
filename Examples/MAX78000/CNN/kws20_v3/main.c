@@ -49,7 +49,7 @@ volatile uint32_t cnn_time; // Stopwatch
 void fail(void)
 {
     printf("\n*** FAIL ***\n\n");
-    while (1);
+    while (1) {}
 }
 
 // 128-channel 128x1 data input (16384 bytes total / 128 bytes per channel):
@@ -202,10 +202,10 @@ int main(void)
     load_input(); // Load data input
     cnn_start(); // Start CNN processing
 
-    while (cnn_time == 0)
-        MXC_LP_EnterSleepMode(); // Wait for CNN
+    while (cnn_time == 0) MXC_LP_EnterSleepMode(); // Wait for CNN
 
-    if (check_output() != CNN_OK) fail();
+    if (check_output() != CNN_OK)
+        fail();
     softmax_layer();
 
     printf("\n*** PASS ***\n\n");

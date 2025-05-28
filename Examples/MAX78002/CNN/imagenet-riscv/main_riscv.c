@@ -57,8 +57,7 @@ void fail(void)
 
 // 3-channel 112x112 data input (37632 bytes total / 12544 bytes per channel):
 // HWC 112x112, channels 0 to 2
-__attribute__ ((section(".rvflash_section")))
-static const uint32_t input_60[] = SAMPLE_INPUT_60;
+__attribute__ ((section(".rvflash_section"))) static const uint32_t input_60[] = SAMPLE_INPUT_60;
 
 void load_input(void)
 {
@@ -110,18 +109,20 @@ int main(void)
     cnn_configure(); // Configure state machine
     load_input(); // Load data input
     // CNN clock: PLL (200 MHz) div 1
-    MXC_GCR->pclkdiv = (MXC_GCR->pclkdiv & ~(MXC_F_GCR_PCLKDIV_CNNCLKDIV | MXC_F_GCR_PCLKDIV_CNNCLKSEL))
-                       | MXC_S_GCR_PCLKDIV_CNNCLKDIV_DIV1 | MXC_S_GCR_PCLKDIV_CNNCLKSEL_IPLL;
+    MXC_GCR->pclkdiv =
+        (MXC_GCR->pclkdiv & ~(MXC_F_GCR_PCLKDIV_CNNCLKDIV | MXC_F_GCR_PCLKDIV_CNNCLKSEL))
+        | MXC_S_GCR_PCLKDIV_CNNCLKDIV_DIV1 | MXC_S_GCR_PCLKDIV_CNNCLKSEL_IPLL;
     cnn_start(); // Start CNN processing
 
-    while (cnn_time == 0)
-        asm volatile("wfi"); // Wait for CNN
+    while (cnn_time == 0) asm volatile("wfi"); // Wait for CNN
 
     // Switch CNN clock to PLL (200 MHz) div 4
 
-    MXC_GCR->pclkdiv = (MXC_GCR->pclkdiv & ~(MXC_F_GCR_PCLKDIV_CNNCLKDIV | MXC_F_GCR_PCLKDIV_CNNCLKSEL))
-                       | MXC_S_GCR_PCLKDIV_CNNCLKDIV_DIV4 | MXC_S_GCR_PCLKDIV_CNNCLKSEL_IPLL;
-    if (check_output() != CNN_OK) fail();
+    MXC_GCR->pclkdiv =
+        (MXC_GCR->pclkdiv & ~(MXC_F_GCR_PCLKDIV_CNNCLKDIV | MXC_F_GCR_PCLKDIV_CNNCLKSEL))
+        | MXC_S_GCR_PCLKDIV_CNNCLKDIV_DIV4 | MXC_S_GCR_PCLKDIV_CNNCLKSEL_IPLL;
+    if (check_output() != CNN_OK)
+        fail();
     cnn_unload((uint32_t *)ml_data);
 
     printf("\n*** PASS ***\n\n");

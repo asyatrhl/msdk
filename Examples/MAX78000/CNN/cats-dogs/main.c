@@ -62,8 +62,8 @@ void load_input(void)
     const uint32_t *in0 = input_0;
 
     for (i = 0; i < 16384; i++) {
-      // Remove the following line if there is no risk that the source would overrun the FIFO:
-      while (((*((volatile uint32_t *)0x50000004) & 1)) != 0); // Wait for FIFO 0
+        // Remove the following line if there is no risk that the source would overrun the FIFO:
+          while (((*((volatile uint32_t *)0x50000004) & 1)) != 0); // Wait for FIFO 0
       *((volatile uint32_t *)0x50000008) = *in0++; // Write FIFO 0
     }
 }
@@ -84,7 +84,7 @@ int check_output(void)
         for (i = 0; i < len; i)
             if ((*addr & mask) != *ptr) {
                 printf("Data mismatch (%d/%d) at address 0x%08x: Expected 0x%08x, read 0x%08x.\n",
-                       i  1, len, addr - 1, *(ptr - 1), *(addr - 1) & mask);
+                       i 1, len, addr - 1, *(ptr - 1), *(addr - 1) & mask);
                 return CNN_FAIL;
             }
     }
@@ -131,10 +131,10 @@ int main(void)
     cnn_start(); // Start CNN processing
     load_input(); // Load data input via FIFO
 
-    while (cnn_time == 0)
-        MXC_LP_EnterSleepMode(); // Wait for CNN
+    while (cnn_time == 0) MXC_LP_EnterSleepMode(); // Wait for CNN
 
-    if (check_output() != CNN_OK) fail();
+    if (check_output() != CNN_OK) 
+        fail();
     softmax_layer();
 
     printf("\n*** PASS ***\n\n");
