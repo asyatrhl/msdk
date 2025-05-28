@@ -63,7 +63,8 @@ void load_input(void)
 
     for (i = 0; i < 16384; i++) {
         // Remove the following line if there is no risk that the source would overrun the FIFO:
-          while (((*((volatile uint32_t *)0x50000004) & 1)) != 0); // Wait for FIFO 0
+        while (((*((volatile uint32_t *)0x50000004) & 1)) != 0) {}
+        // Wait for FIFO 0
         *((volatile uint32_t *)0x50000008) = *in0++; // Write FIFO 0
     }
 }
@@ -133,7 +134,7 @@ int main(void)
 
     while (cnn_time == 0) MXC_LP_EnterSleepMode(); // Wait for CNN
 
-    if (check_output() != CNN_OK) 
+    if (check_output() != CNN_OK)
         fail();
     softmax_layer();
 

@@ -116,7 +116,7 @@ int main(void)
     cnn_configure(); // Configure state machine
     load_input(); // Load data input
     // CNN clock: PLL (200 MHz) div 1
-    MXC_GCR->pclkdiv = 
+    MXC_GCR->pclkdiv =
         (MXC_GCR->pclkdiv & ~(MXC_F_GCR_PCLKDIV_CNNCLKDIV | MXC_F_GCR_PCLKDIV_CNNCLKSEL)) |
         MXC_S_GCR_PCLKDIV_CNNCLKDIV_DIV4 | MXC_S_GCR_PCLKDIV_CNNCLKSEL_IPLL;
     cnn_start(); // Start CNN processing
@@ -126,8 +126,8 @@ int main(void)
     // Switch CNN clock to PLL (200 MHz) div 4
 
     MXC_GCR->pclkdiv =
-        (MXC_GCR->pclkdiv & ~(MXC_F_GCR_PCLKDIV_CNNCLKDIV | MXC_F_GCR_PCLKDIV_CNNCLKSEL))
-        | MXC_S_GCR_PCLKDIV_CNNCLKDIV_DIV4 | MXC_S_GCR_PCLKDIV_CNNCLKSEL_IPLL;
+        (MXC_GCR->pclkdiv & ~(MXC_F_GCR_PCLKDIV_CNNCLKDIV | MXC_F_GCR_PCLKDIV_CNNCLKSEL)) |
+        MXC_S_GCR_PCLKDIV_CNNCLKDIV_DIV4 | MXC_S_GCR_PCLKDIV_CNNCLKSEL_IPLL;
     if (check_output() != CNN_OK)
         fail();
     cnn_unload((uint32_t *)ml_data);

@@ -135,7 +135,6 @@ int main(void)
 
     cnn_disable(); // Shut down CNN clock, disable peripheral
 
-
     return 0;
 }
 
